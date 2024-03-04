@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+<!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com -->
+{% block content %}
+
+<!-- component -->
+<!-- This is an example component -->
+<div class="container mx-auto shadow-lg rounded-lg">
+    <!-- headaer -->
+    <!-- <div class="px-5 py-5 flex justify-between items-center bg-white border-b-2">
+            <div class="font-semibold text-2xl">GoingChat</div>
+            <div class="w-1/2">
+                <input type="text" name="" id="" placeholder="search IRL"
+                    class="rounded-2xl bg-gray-100 py-3 px-5 w-full" />
+            </div>
+            <div class="h-12 w-12 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center">
+                RA
+            </div>
+        </div> -->
+    <!-- end header -->
+    <!-- Chatting -->
+    <div class="flex flex-row justify-between bg-white">
+        <!-- chat list -->
+        <div class="flex flex-col w-2/5 border-r-2 overflow-y-auto">
+            <!-- search compt -->
+            <div class="border-b-2 py-4 px-2">
+                <input type="text" placeholder="search chatting"
+                    class="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" />
+            </div>
+            <!-- end search compt -->
+            <!-- user list -->
+            {% for member in members%}
+            <div class="flex flex-row py-4 px-2 justify-center items-center border-b-2">
+                <div class="w-1/4">
+                    <img src="{{member.photo.url}}" class="object-cover h-12 w-12 rounded-full" alt="" />
+                </div>
+                <div class="w-full">
+                    <div class="text-lg font-semibold">{{member.username}}</div>
+                    <span class="text-gray-500">Pick me at 9:00 Am</span>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- <div class="flex flex-row py-4 px-2 items-center border-b-2">
+                    <div class="w-1/4">
+                        <img src="https://source.unsplash.com/otT2199XwI8/600x600"
+                            class="object-cover h-12 w-12 rounded-full" alt="" />
+                    </div>
+                    <div class="w-full">
+                        <div class="text-lg font-semibold">Everest Trip 2021</div>
+                        <span class="text-gray-500">Hi Sam, Welcome</span>
+                    </div>
+                </div>
+                <div class="flex flex-row py-4 px-2 items-center border-b-2 border-l-4 border-blue-400">
+                    <div class="w-1/4">
+                        <img src="https://source.unsplash.com/L2cxSuKWbpo/600x600"
+                            class="object-cover h-12 w-12 rounded-full" alt="" />
+                    </div>
+                    <div class="w-full">
+                        <div class="text-lg font-semibold">{{room.room_name}}</div>
+                        <span class="text-gray-500">Lusi : Thanks Everyone</span>
+                    </div>
+                </div>
+                <div class="flex flex-row py-4 px-2 items-center border-b-2">
+                    <div class="w-1/4">
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                            class="object-cover h-12 w-12 rounded-full" alt="" />
+                    </div>
+                    <div class="w-full">
+                        <div class="text-lg font-semibold">Javascript Indonesia</div>
+                        <span class="text-gray-500">Evan : some one can fix this</span>
+                    </div>
+                </div>
+                <div class="flex flex-row py-4 px-2 items-center border-b-2">
+                    <div class="w-1/4">
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                            class="object-cover h-12 w-12 rounded-full" alt="" />
+                    </div>
+                    <div class="w-full">
+                        <div class="text-lg font-semibold">Javascript Indonesia</div>
+                        <span class="text-gray-500">Evan : some one can fix this</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row py-4 px-2 items-center border-b-2">
+                    <div class="w-1/4">
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                            class="object-cover h-12 w-12 rounded-full" alt="" />
+                    </div>
+                    <div class="w-full">
+                        <div class="text-lg font-semibold">Javascript Indonesia</div>
+                        <span class="text-gray-500">Evan : some one can fix this</span>
+                    </div>
+                </div> -->
+            <!-- end user list -->
+        </div>
+        <!-- end chat list -->
+        <!-- message -->
+        <div class="w-full px-5 flex flex-col justify-between">
+            <div class="flex flex-col mt-5 overflow-y-auto h-96 "id="main">
+                {% for message in messages %}
+                {% if user.email == message.user.email %}
+                <div class="flex justify-end mb-4" id="onmessage">
+                    <div class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                        
+                        <!-- <p class="text-sm font-semibold text-white-900 dark:text-black">username</p> -->
+                        {{message.content}}
+                        <p class="text-xs text-white-900 dark:text-black" >{{message.time}}</p>
+                    </div>
+                    <img src="https://img.icons8.com/pulsar-line/48/user.png"  class="object-cover h-8 w-8 rounded-full" alt="" />
+                </div>
+                {% else %}
+                <div class="flex justify-start mb-4" id="onmessage">
+                    <img src="https://img.icons8.com/pulsar-line/48/user.png"  class="object-cover h-8 w-8 rounded-full" alt="" />
+                    <div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+                        <p class="text-sm mb-3 text-white-900 dark:text-black" >
+                            {{message.user.username}}</p>
+                        
+                        {{message.content}}
+                        <p class="text-xs font-semibold text-white-900 dark:text-black" >{{message.time}}</p>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <!-- <div class="flex justify-end mb-4">
+                        <div>
+                            <div class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                Magnam, repudiandae.
+                            </div>
+
+                            <div
+                                class="mt-4 mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Debitis, reiciendis!
+                            </div>
+                        </div>
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" class="object-cover h-8 w-8 rounded-full"
+                            alt="" />
+                    </div>
+                    <div class="flex justify-start mb-4">
+                        <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" class="object-cover h-8 w-8 rounded-full"
+                            alt="" />
+                        <div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+                            happy holiday guys!
+                        </div>
+                    </div> -->
+            </div>
+            <div class="py-5">
+                <!-- <input class="w-2/ bg-gray-300 py-5 px-3 rounded-xl" type="text"
+                        placeholder="type your message here..."id="chat-message-input" />
+                    <span><button id="chat-message-submit">Send</button></span> -->
+                <div class="lg:w-full mt-6 mx-4 lg:mx-auto p-4 bg-gray-200 rounded-full">
+                    <form method="post" action="." class="flex">
+                        {% csrf_token %}
+                        <input type="text" name="content" class="flex-1 mr-3 p-2 rounded-full"
+                            placeholder="Your message..." id="chat-message-input">
+
+                        <button class="px-5 py-3 rounded-xl text-white bg-blue-600 hover:bg-blue-700"
+                            id="chat-message-submit">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- end message -->
+        <div class="w-2/5 border-l-2 px-5">
+            <div class="flex flex-col">
+                <div id="json-roomname" class="font-semibold text-xl py-4">{{room.room_name}}</div>
+                <img src="{{room.room_image.url}}" class="object-cover rounded-xl h-64" alt="" />
+                <div class="font-semibold py-4">Created 22 Sep 2021</div>
+                <div class="font-light">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+                    perspiciatis!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block scripts%}
+{{ room.slug|json_script:"json-room-room_name" }}
+{{ request.user.username|json_script:"json-username" }}
+
+<script>
+    const roomName = JSON.parse(document.getElementById('json-room-room_name').textContent);
+    const userName = JSON.parse(document.getElementById('json-username').textContent);
+
+    const chatSocket = new WebSocket(
+        'ws://' +
+        window.location.host +
+        '/ws/chat/' +
+        roomName +
+        '/'
+    );
+
+    chatSocket.onopen = function (e) {
+        const data = e;
+        console.log("connect", data);
+    }
+
+    chatSocket.onmessage = function (e) {
+
+        const data = JSON.parse(e.data);
+        console.log("onmessage",data)
+        if (data.message) {
+            const onMessageDiv = document.querySelector('#onmessage');
+            var photo = null
+            
+            if (data.photo){
+                photo = data.photo
+            }
+            else{
+                photo = "https://img.icons8.com/pulsar-line/48/user.png"
+            }
+
+            if(userName === data.username){
+                onMessageDiv.innerHTML+=(
+                    '<div class="flex justify-end mb-4" id="onmessage">'
+                    +'<div class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">'
+                    // + '<p class="text-sm font-semibold text-white-900 dark:text-black">'+data.username+'</p> '
+                    +    data.message
+                    + '</div>'
+                    + '<img src="https://img.icons8.com/pulsar-line/48/user.png" class="object-cover h-8 w-8 rounded-full" alt=""  />'
+                    +'</div>'
+                );
+            }
+
+            else{    
+                onMessageDiv.innerHTML += (
+                    '<div class="flex justify-start mb-4" id="onmessage">'+
+                    '<img src="https://img.icons8.com/pulsar-line/48/user.png" class="object-cover h-8 w-8 rounded-full" alt="" />' +
+                    '<div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white"><p>' + data.username + '</p>' + data.message + '</div>'
+                    + '</div>'
+                );
+            }
+        } else {
+            alert('The message was empty!');
+        }
+        scrollToBottom();
+    }
+
+    chatSocket.onclose = function (e) {
+        console.log('onclose');
+    }
+
+    // document.querySelector('#chat-message-input').focus();
+    // document.querySelector('#chat-message-input').onkeyup = function (e) {
+    //     if (event.key === "Enter") {
+    //         event.preventDefault();
+    //         document.querySelector('#chat-message-submit').click();
+    //     }
+    //     event.preventDefault();
+    // };
+
+    document.querySelector('#chat-message-submit').onclick = function (e) {
+        e.preventDefault();
+
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+
+        console.log({
+            'message': message,
+            'username': userName,
+            'room': roomName
+        });
+
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': userName,
+            'room': roomName
+        }));
+        
+
+        messageInputDom.value = '';
+
+        //location.reload(true);
+        return false;
+    };
+
+    function scrollToBottom() {
+        let objDiv = document.getElementById('main');
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+    // Add this below the function to trigger the scroll on load.
+    scrollToBottom();
+
+
+</script>
+{% endblock %}
